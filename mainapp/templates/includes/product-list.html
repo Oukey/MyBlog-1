@@ -1,0 +1,59 @@
+{% load static %}
+{% if current_product_list %}
+
+<div class="row no-gutters" style="text-align: center">
+    <div class="col-3">
+        <strong>Фото</strong>
+    </div>
+    <div class="col-3">
+        <strong>Наимен-ние</strong>
+    </div>
+    <div class="col-3">
+        <strong>Цена</strong>
+    </div>
+    <div class="col-3">
+        <strong></strong>
+    </div>
+
+</div>
+
+    {% for product in current_product_list %}
+<div class="row" style="text-align: center; margin-top: 5px;">
+        <div class="col-3">
+            {% if product.image %}
+            <a href="{% url 'mainapp:product_detail' product.pk %}"><img class="img-fluid basket-img" src="{{ product.image.url }}" alt="Responsive image" style="width: 100px;"></a>
+            {% else %}
+            Нет фото
+            {% endif %}
+        </div>
+        <div class="col-3">
+            <a href="{% url 'mainapp:product_detail' product.pk %}">{{ product.name }}</a></td>
+        </div>
+        <div class="col-3">
+            {{ product.price }}
+        </div>
+        <div class="col-3 button-more">
+
+        <a class="" data-toggle="collapse" href="#collapse-{{ product.pk }}" role="button" aria-expanded="false" aria-controls="collapse-{{ product.pk }}">Больше</a>
+
+        </div>
+</div>
+
+<div class="collapse multi-collapse" id="collapse-{{ product.pk }}">
+        <div class="row">
+            <div class="col-12">
+             <div class="slide-more-block">
+                  <div> <!--class="card card-body"-->
+                    Описание: {{ product.description  }}
+                  </div>
+            </div>
+      </div>
+    </div>
+</div>
+
+
+    {% endfor %}
+
+{% else %}
+	Ничего не найдено
+{% endif %}

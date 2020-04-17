@@ -1,0 +1,73 @@
+{% extends "base_generic.html" %} 
+
+{% load bootstrap4 %} 
+
+{% block content %}
+{% load static %}
+<div class="row">
+      <div class="col-xl-12 text-center">
+        <h1>{{ set_title }}</h1>
+      </div>
+</div>
+
+<div class="row">
+
+  <div class="col-xl-3">
+       <div class="left-nav-block">
+         <strong>Личный кабинет</strong>
+           <div class="left-nav-block-element">
+              <span><a href="#">Вход</a> / <a href="#">Регистрация</a></span>
+           </div>
+        </div>
+        <div class="left-nav-block">
+          <ul style="list-style-type: none;  text-align: center;">
+             {% include 'includes/group-nav-block.html' %}
+          </ul>
+        </div>
+
+  </div>
+  <div class="col-xl-9">
+    <div class="base_content">
+        <div class="content-block">
+            <div class="content-small-block">
+
+
+            {#-------------------------------------#}
+			{% if modyfy_auto %}
+				<div class="row justify-content-center">
+					<div class="col-xl-4 col-sm-12">
+                        {% if modyfy_auto.img %}
+                            <img class="img-fluid" src="{{ modyfy_auto.img.url }}" alt="Responsive image">
+                        {% else %}
+                            Изображения не обнаружено
+                        {% endif %}
+					</div>
+                    <div class="col-xl-8 col-sm-12">
+                        <h5 class="card-title"><strong>Выбрана модель: </strong> {{ modyfy_auto.model.mark }} {{ modyfy_auto.model }}</h5>
+                        <p class="card-text">Модификация: {{ modyfy_auto.name }}</p>
+                    </div>
+
+				</div>
+
+			{% endif %}
+            {% block js %}
+                <script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+                <!--script src="{% static '/js/reload_auto.js' %}"></script-->
+                <!--script-- src="{% static '/js/reload_modyfy.js' %}"></script-->
+            {% endblock %}
+            {#-------------------------------------#}
+            </div>
+
+        </div>
+        <div class="content-block group-nav-block">
+            <div class="content-small-block" style="list-style-type: none;">
+                {% include 'includes/group-nav-block.html' %}
+            </div>
+        </div>
+
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

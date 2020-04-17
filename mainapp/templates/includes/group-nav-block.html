@@ -1,0 +1,23 @@
+<li> <a href="{% url 'mainapp:product_list' %}"
+	{% if not request.resolver_match.kwargs.pk %}
+		{#class="list-group-item list-group-item-action list-group-item-primary active">#}
+		class="button-category button-category-active">
+	{% else %}
+		{#class="list-group-item list-group-item-action list-group-item-primary">#}
+		class="button-category">
+	{% endif %}
+	Любая
+	</a>
+</li>
+{% for category in categorys %}
+	<li>
+        <a href="{% url 'mainapp:page_choice_category' modyfy_auto.pk category.pk %}"
+        {% if request.resolver_match.kwargs.pk == category.pk %}
+                class="button-category button-category-active">
+            {% else %}
+                class="button-category">
+            {% endif %}
+        {{ category.name }}
+        </a>
+	</li>
+{% endfor %}

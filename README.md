@@ -6,8 +6,6 @@ python3 -m venv env  виртуальное окружение
 
 source env/bin/activate - активируем
 
-
-
 pip install django
 pip install django-bootstrap4
 
