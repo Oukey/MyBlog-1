@@ -56,7 +56,7 @@
 
                 {% else %}
                 <a class="dropdown-item" href="{% url 'login' %}?next={{request.path}}">Войти</a>
-                <a class="dropdown-item" href="{# url 'register' #}">Регистрация</a>
+                <a class="dropdown-item" href="{% url 'register' %}">Регистрация</a>
                 {% endif %}
 
 

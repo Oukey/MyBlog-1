@@ -4,12 +4,12 @@ from django.conf.urls import url
 from .views import RcLoginView, RcLogoutView, profile, ChangeUserInfoView, RcPasswordChangeView, RegisterDoneView
 from .views import RegisterView, user_activate, DeleteUserView
 
-# from .captcha_decorators import check_recaptcha
+from .captcha_decorators import check_recaptcha
 
 
 urlpatterns = [
     path('login/', RcLoginView.as_view(), name='login'),
-    # path('register/', check_recaptcha(views.RegisterView.as_view()), name = 'register'),
+    path('register/', check_recaptcha(views.RegisterView.as_view()), name='register'),
     path('profile/', profile, name='profile'),
     path('logout/', RcLogoutView.as_view(), name='logout'),
     path('profile-change/', ChangeUserInfoView.as_view(), name='profile_change'),

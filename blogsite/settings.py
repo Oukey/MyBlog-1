@@ -11,19 +11,24 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from configparser import RawConfigParser
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+local_config_path = os.path.join(BASE_DIR, 'conf', 'config.conf')
+config = RawConfigParser()
+config.read(local_config_path)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'cji8iiqod9gps)mjq(%i_esldb%7uki7l$ol=(7)v6!9#obd=^'
+SECRET_KEY = config.get('main', 'SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.getboolean('main', 'Debug')
 
 ALLOWED_HOSTS = []
 
@@ -89,6 +94,7 @@ DATABASES = {
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
+
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -126,3 +132,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
 AUTH_USER_MODEL='cabinet.AdvUser'
+
+GOOGLE_RECAPTCHA_SECRET_KEY = config.get('main', 'GOOGLE_RECAPTCHA_SECRET_KEY')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = config.get('main', 'EMAIL_HOST')
+EMAIL_PORT = config.get('main', 'EMAIL_PORT')
+EMAIL_HOST_USER = config.get('main', 'EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = config.get('main', 'DEFAULT_FROM_EMAIL')
+EMAIL_HOST_PASSWORD = config.get('main', 'EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = config.getboolean('main', 'EMAIL_USE_SSL')
+EMAIL_USE_TLS = config.getboolean('main', 'EMAIL_USE_TLS')
